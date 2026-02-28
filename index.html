@@ -1,39 +1,80 @@
-document.getElementById("count").innerText=count;
-document.getElementById("daily").innerText=daily;
-document.getElementById("total").innerText=total;
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أذكاري</title>
+
+<style>
+body{
+  font-family: Arial;
+  text-align:center;
+  background:#f5f5f5;
+  direction:rtl;
+}
+button{
+  padding:15px;
+  margin:10px;
+  font-size:18px;
+}
+.box{
+  background:white;
+  padding:20px;
+  margin:20px;
+  border-radius:15px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌙 أذكاري</h1>
+
+<div class="box">
+<h2>المسبحة</h2>
+<p id="count">0</p>
+<button onclick="tasbih()">تسبيح</button>
+<button onclick="reset()">تصفير</button>
+</div>
+
+<div class="box">
+<h2>مواقيت الصلاة</h2>
+<button onclick="getLocation()">عرض المواقيت</button>
+<p id="times"></p>
+</div>
+
+<script>
+let count = 0;
 
 function tasbih(){
-  count++; daily++; total++;
-  document.getElementById("count").innerText=count;
-  document.getElementById("daily").innerText=daily;
-  document.getElementById("total").innerText=total;
-  localStorage.setItem("count",count);
-  localStorage.setItem("daily",daily);
-  localStorage.setItem("total",total);
+  count++;
+  document.getElementById("count").innerText = count;
+  localStorage.setItem("count", count);
   navigator.vibrate(40);
 }
 
 function reset(){
-  count=0;
-  document.getElementById("count").innerText=0;
-  localStorage.setItem("count",0);
+  count = 0;
+  document.getElementById("count").innerText = 0;
+  localStorage.setItem("count", 0);
 }
 
-/* مواقيت */
 function getLocation(){
 navigator.geolocation.getCurrentPosition(pos=>{
-let lat=pos.coords.latitude;
-let lon=pos.coords.longitude;
-fetch(https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2)
+let lat = pos.coords.latitude;
+let lon = pos.coords.longitude;
+
+fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`)
 .then(res=>res.json())
 .then(data=>{
-let t=data.data.timings;
-document.getElementById("times").innerHTML=
-الفجر: ${t.Fajr}<br>
+let t = data.data.timings;
+document.getElementById("times").innerHTML =
+`الفجر: ${t.Fajr}<br>
 الظهر: ${t.Dhuhr}<br>
 العصر: ${t.Asr}<br>
 المغرب: ${t.Maghrib}<br>
-العشاء: ${t.Isha};
+العشاء: ${t.Isha}`;
 });
 });
 }
