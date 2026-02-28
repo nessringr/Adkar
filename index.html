@@ -3,80 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أذكاري</title>
+<title>أذكاري | نسرين</title>
 
 <style>
 body{
-  font-family: Arial;
-  text-align:center;
-  background:#f5f5f5;
+  margin:0;
+  font-family: 'Arial';
   direction:rtl;
+  text-align:center;
+  background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  color:white;
+  overflow-x:hidden;
 }
+
+/* نجوم */
+body::after{
+  content:"";
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity:0.4;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+h1{
+  margin-top:30px;
+  font-size:32px;
+}
+
+.container{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap:20px;
+  padding:30px;
+}
+
+.card{
+  background: rgba(255,255,255,0.1);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter: blur(10px);
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+}
+
+.icon{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
 button{
-  padding:15px;
-  margin:10px;
-  font-size:18px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  background:#ffffff20;
+  color:white;
+  font-size:16px;
 }
-.box{
-  background:white;
-  padding:20px;
-  margin:20px;
-  border-radius:15px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
+
+#count{
+  font-size:24px;
+  margin:10px 0;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🌙 أذكاري</h1>
+<h1>🌙 أذكاري - نسرين ✨</h1>
 
-<div class="box">
-<h2>المسبحة</h2>
+<div class="container">
+
+<div class="card">
+<div class="icon">📿</div>
+<h3>التسبيح</h3>
 <p id="count">0</p>
 <button onclick="tasbih()">تسبيح</button>
 <button onclick="reset()">تصفير</button>
 </div>
 
-<div class="box">
-<h2>مواقيت الصلاة</h2>
-<button onclick="getLocation()">عرض المواقيت</button>
-<p id="times"></p>
+<div class="card">
+<div class="icon">🎧</div>
+<h3>تلاوات</h3>
+<p>قريباً بإذن الله</p>
+</div>
+
+<div class="card">
+<div class="icon">🌅</div>
+<h3>أذكار</h3>
+<p>صباح ومساء قريباً</p>
+</div>
+
+<div class="card">
+<div class="icon">🤲</div>
+<h3>دعاء للزائر</h3>
+<p>اللهم اجعل هذا الموقع صدقة جارية له 🤍</p>
+</div>
+
+<div class="card">
+<div class="icon">💖</div>
+<h3>دعاء لنسرين</h3>
+<p>اللهم اكتب لها الأجر بكل من انتفع 🤍</p>
+</div>
+
+<div class="card">
+<div class="icon">🌍</div>
+<h3>منفعة عامة</h3>
+<p>كل خير تنشره يعود إليك أضعافاً ✨</p>
+</div>
+
 </div>
 
 <script>
-let count = 0;
+let count=0;
 
 function tasbih(){
   count++;
-  document.getElementById("count").innerText = count;
-  localStorage.setItem("count", count);
-  navigator.vibrate(40);
+  document.getElementById("count").innerText=count;
+  navigator.vibrate(30);
 }
 
 function reset(){
-  count = 0;
-  document.getElementById("count").innerText = 0;
-  localStorage.setItem("count", 0);
-}
-
-function getLocation(){
-navigator.geolocation.getCurrentPosition(pos=>{
-let lat = pos.coords.latitude;
-let lon = pos.coords.longitude;
-
-fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lon}&method=2`)
-.then(res=>res.json())
-.then(data=>{
-let t = data.data.timings;
-document.getElementById("times").innerHTML =
-`الفجر: ${t.Fajr}<br>
-الظهر: ${t.Dhuhr}<br>
-العصر: ${t.Asr}<br>
-المغرب: ${t.Maghrib}<br>
-العشاء: ${t.Isha}`;
-});
-});
+  count=0;
+  document.getElementById("count").innerText=0;
 }
 </script>
 
