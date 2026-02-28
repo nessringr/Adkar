@@ -3,55 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أذكاري | نسرين</title>
+<title>صدقة جارية لنسرين 🤍</title>
 
 <style>
 body{
   margin:0;
-  font-family:Arial;
+  font-family:'Tahoma',sans-serif;
   direction:rtl;
-  text-align:center;
-  background:url("https://images.unsplash.com/photo-1587614382346-4ecb38b0d5e0") no-repeat center center fixed;
-  background-size:cover;
+  background:linear-gradient(#0f2027,#203a43,#2c5364);
   color:white;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-.overlay{
-  background:rgba(0,0,0,0.75);
-  min-height:100vh;
-  padding-bottom:40px;
+.stars{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity:0.4;
+  z-index:-1;
 }
 
 h1{
-  padding-top:30px;
+  padding:20px;
 }
 
 .container{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:15px;
   padding:20px;
 }
 
 .card{
-  background:rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.08);
   padding:15px;
-  border-radius:15px;
-  backdrop-filter:blur(5px);
+  border-radius:18px;
+  backdrop-filter:blur(6px);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  background:rgba(255,255,255,0.15);
 }
 
 .icon{
-  font-size:25px;
+  font-size:22px;
   margin-bottom:5px;
 }
 
 button{
   padding:6px 10px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   background:#ffffff30;
   color:white;
-  font-size:14px;
   margin-top:5px;
 }
 
@@ -60,16 +68,24 @@ audio{
   margin-top:5px;
 }
 
+select{
+  width:100%;
+  padding:5px;
+  border-radius:8px;
+  margin-top:5px;
+}
+
 #count{
-  font-size:20px;
+  font-size:18px;
 }
 </style>
 </head>
 
 <body>
-<div class="overlay">
+<div class="stars"></div>
 
-<h1>🌙 أذكاري - نسرين ✨</h1>
+<h1>🌙 صدقة جارية لنسرين 🤍<br>
+ادعوا لها ولوالديها بالرحمة والمغفرة</h1>
 
 <div class="container">
 
@@ -83,9 +99,16 @@ audio{
 
 <div class="card">
 <div class="icon">🎧</div>
-<h3>تلاوة - سورة الرحمن</h3>
-<audio controls>
-<source src="https://download.quranicaudio.com/quran/mishary_rashid_alafasy/055.mp3" type="audio/mpeg">
+<h3>تلاوات المنشاوي</h3>
+<select onchange="changeSurah(this.value)">
+<option value="001">الفاتحة</option>
+<option value="036">يس</option>
+<option value="055">الرحمن</option>
+<option value="067">الملك</option>
+<option value="112">الإخلاص</option>
+</select>
+<audio id="player" controls>
+<source src="https://download.quranicaudio.com/quran/muhammad_siddeeq_al_minshawi/001.mp3" type="audio/mpeg">
 </audio>
 </div>
 
@@ -108,39 +131,44 @@ audio{
 </div>
 
 <div class="card">
-<div class="icon">🚪</div>
-<h3>الخروج من المنزل</h3>
-<p>بسم الله توكلت على الله ولا حول ولا قوة إلا بالله</p>
-</div>
-
-<div class="card">
 <div class="icon">🤲</div>
 <h3>دعاء للزائر</h3>
-<p>اللهم اكتب له الأجر وحقق له أمنيته 🤍</p>
+<p>اللهم اجعل هذا الموقع سبباً في هدايته وراحته 🤍</p>
 </div>
 
 <div class="card">
-<div class="icon">💖</div>
-<h3>دعاء لنسرين</h3>
-<p>اللهم اجعل هذا العمل صدقة جارية لها 🤍</p>
+<div class="icon">📖</div>
+<h3>حديث عن الصوم</h3>
+<p>قال ﷺ: "من صام رمضان إيماناً واحتساباً غفر له ما تقدم من ذنبه"</p>
 </div>
 
+<div class="card">
+<div class="icon">🌌</div>
+<h3>حديث عن قيام الليل</h3>
+<p>قال ﷺ: "أفضل الصلاة بعد الفريضة صلاة الليل"</p>
+</div>
+
+<div class="card">
+<div class="icon">🕊</div>
+<h3>اسم من أسماء الله</h3>
+<p>الرحمن: واسع الرحمة التي وسعت كل شيء</p>
 </div>
 
 </div>
 
 <script>
 let count=0;
-
 function tasbih(){
   count++;
   document.getElementById("count").innerText=count;
-  navigator.vibrate(20);
 }
-
 function reset(){
   count=0;
   document.getElementById("count").innerText=0;
+}
+function changeSurah(num){
+  document.getElementById("player").src=
+  "https://download.quranicaudio.com/quran/muhammad_siddeeq_al_minshawi/"+num+".mp3";
 }
 </script>
 
